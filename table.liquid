@@ -5,11 +5,15 @@
   assign padding = section.settings.padding
   assign title = section.settings.title
   
-           
+  assign sectioncolor = section.settings.sectioncolor
+  assign tablecolor = section.settings.tablecolor
+  
+      
 %}
 <style>
   .id_{{ section.id }}{
     padding:{{padding}};
+    background-color:{{sectioncolor}};
   }
 .id_{{ section.id }} .container {
     max-width: 1200px;
@@ -43,7 +47,7 @@
     
     display: flex;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: {{tablecolor}};
     border-radius: 20px;
     padding: 0 20px 10px;
   }
@@ -273,6 +277,17 @@
           "type": "text",
           "label": "Title",
           "id": "title"
+        },
+        {
+          "type": "color",
+          "label": "Section Color",
+          "id": "sectioncolor" 
+        },
+        {
+          "type": "color",
+          "label": "Table Color",
+          "id": "tablecolor" ,
+          "default":"#fff"
         },
         {
           "type": "color",
