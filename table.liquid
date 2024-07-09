@@ -1,0 +1,393 @@
+ {% liquid 
+  assign textcolor = section.settings.textcolor  
+  assign trueiconcolor = section.settings.trueiconcolor  
+  assign falseiconcolor = section.settings.falseiconcolor
+  assign padding = section.settings.padding
+  assign title = section.settings.title
+  
+           
+%}
+<style>
+  .id_{{ section.id }}{
+    padding:{{padding}};
+  }
+.id_{{ section.id }} .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  .id_{{ section.id }} .wrap {
+    flex-wrap: wrap;
+}
+.id_{{ section.id }} .flex {
+    display: flex;
+}
+   .id_{{ section.id }} h2{
+    
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 120%;
+    margin: 0;
+    color: #252525;
+    text-align: center;
+    flex-basis: 100%;
+    margin-bottom: 60px;
+  }
+  .id_{{ section.id }} .trueIcon{
+        fill: {{trueiconcolor}};
+  }
+  .id_{{ section.id }} .falseIcon{
+        fill: {{falseiconcolor}};
+    
+  }
+  .tableRow{
+    
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 0 20px 10px;
+  }
+  .tableRow .tableColumn{
+    
+    flex-basis: 20%;
+  }
+   
+  .tableRow .tableColumn > div svg{
+    
+    width: 40px;
+  }
+  .tableRow .tableColumn > div h5{
+    
+    color: #252525;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .tableRow .tableHead{
+    flex-basis: 20%;
+  }
+  .tableRow .tableColumn > div{
+    
+    border-left: 1px solid #ddd;
+  }
+  .tableRow .tableHead > div,
+  .tableRow .tableColumn > div{ 
+    padding: 20px 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    border-bottom: 1px solid #ddd;
+    height: 80px;
+  }
+ 
+  .tableRow .tableHead > div:last-child,
+  .tableRow .tableColumn > div:last-child{  
+    border-bottom: 0 solid #ddd; 
+  }
+  
+  .tableRow .tableHead > div:first-child,
+  .tableRow .tableColumn > div:first-child{  
+    border-bottom: 2px solid #646464;
+  }
+  
+    
+  .tableRow .tableHead > div h5{
+    font-size: 20px;
+    margin: 0;
+    color: #252525;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  @media(max-width: 767px){
+    .id_{{section.id}} {
+    padding: 50px 20px;
+}
+    .id_{{section.id}} h2 {
+    font-size: 30px; 
+    line-height: 100%;
+     
+    margin-bottom: 40px;
+}
+
+    .tableRow .tableHead > div, .tableRow .tableColumn > div {
+    padding: 20px 10px;  
+    height: 80px;
+}
+    .tableRow .tableHead, .tableRow .tableColumn{
+      
+    flex-grow: 0;
+    flex-shrink: 0;
+    }
+    .tableRow .tableHead  {
+    flex-basis: 60%;
+}
+  .tableRow .tableColumn {
+    flex-basis: 45%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+    .tableRow {
+    
+    padding: 0 5px 0;
+    flex-wrap: nowrap !important;
+    overflow-x: scroll;
+}
+    .tableRow .tableColumn > div svg {
+    width: 30px;
+}
+    .column_WL38LN::before { 
+   
+        height: 97% !important;
+    border-radius: 30px !important;
+}
+  }
+</style>             
+
+<section class="id_{{ section.id }}">
+  <div class="container">
+    <div class="row flex wrap">
+      <h2>{{ title }}</h2>
+    </div>
+
+
+    <div>
+      <div class="row flex wrap tableRow">
+
+        
+
+        {% for block in section.blocks  %}
+          {% case block.type %}
+            {% when 'column_title' %} 
+                
+              {% liquid 
+                assign title_1 = block.settings.title_1
+                assign title_2 = block.settings.title_2
+                assign title_3 = block.settings.title_3
+                assign title_4 = block.settings.title_4
+                assign title_5 = block.settings.title_5
+              %}
+              <div class="tableHead">
+                <div></div> 
+                <div><h5>{{ title_1 }}</h5></div>   
+                <div><h5>{{ title_2 }}</h5></div>   
+                <div><h5>{{ title_3 }}</h5></div>   
+                <div><h5>{{ title_4 }}</h5></div>   
+                <div><h5>{{ title_5 }}</h5></div>   
+              </div>
+            {% when 'column' %}
+            
+              {% liquid 
+                assign title = block.settings.title
+                assign check_1 = block.settings.check_1
+                assign check_2 = block.settings.check_2 
+                assign check_3 = block.settings.check_3 
+                assign check_4 = block.settings.check_4 
+                assign check_5 = block.settings.check_5 
+                
+                assign featured = block.settings.featured 
+                assign columncolor = block.settings.columncolor 
+                assign textcolor = block.settings.textcolor 
+           
+              %}
+            {% if featured == true %}
+            <style>
+              .{{ block.id }}{
+                position:relative;
+              }
+              .{{ block.id }}::before{
+                content:'';
+                background-color:{{columncolor}}; 
+                width: 100%;
+                height: 110%;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                border-radius: 30px;
+              }
+              .{{ block.id }} h5{
+                 color:{{textcolor}} !important; 
+              }
+            </style>
+            {% endif %}
+              <div class="{{ block.id }} tableColumn">
+                
+                <div><h5>{{ title }}</h5></div>   
+                <div>
+                    {% if check_1 == true %}
+                      <svg class="trueIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    {% else %}
+                      <svg class="falseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                    {% endif %}
+                </div> 
+                <div>
+                    {% if check_2 == true %}
+                      <svg class="trueIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    {% else %}
+                      <svg class="falseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                    {% endif %}
+                </div> 
+                <div>
+                    {% if check_3 == true %}
+                      <svg class="trueIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    {% else %}
+                      <svg class="falseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                    {% endif %}
+                </div> 
+                <div>
+                    {% if check_4 == true %}
+                      <svg class="trueIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    {% else %}
+                      <svg class="falseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                    {% endif %}
+                </div> 
+                <div>
+                    {% if check_5 == true %}
+                      <svg class="trueIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    {% else %}
+                      <svg class="falseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                    {% endif %}
+                </div>     
+              </div>
+          {% endcase %}
+        {% endfor %}
+        
+
+                        
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Shopc Comparison",
+    "settings": [
+       {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "color",
+          "label": "True Icon Color",
+          "id": "trueiconcolor" 
+        },
+        {
+          "type": "color",
+          "label": "False Icon Color",
+          "id": "falseiconcolor" 
+        },
+        {
+          "type": "text",
+          "label": "Section Padding",
+          "id": "padding",
+          "default":"80px 0"
+        }
+    ],
+    "blocks":[
+      {
+        "type": "column",
+        "name":"Add Column",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Title",
+            "id": "title"
+          },
+          {
+            "type": "checkbox",
+            "label": "Check for True",
+            "id": "check_1",
+            "default":true
+          },
+          {
+            "type": "checkbox",
+            "label": "Check for True",
+            "id": "check_2",
+            "default":true
+          },
+          {
+            "type": "checkbox",
+            "label": "Check for True",
+            "id": "check_3",
+            "default":true
+          },
+          {
+            "type": "checkbox",
+            "label": "Check for True",
+            "id": "check_4",
+            "default":true
+          },
+          {
+            "type": "checkbox",
+            "label": "Check for True",
+            "id": "check_5",
+            "default":true
+          },
+          {
+            "type": "checkbox",
+            "label": "Featured",
+            "id": "featured",
+            "default":false
+          },
+          {
+            "type": "color",
+            "label": "Column Color",
+            "id": "columncolor" 
+          },
+          {
+            "type": "color",
+            "label": "Text Color",
+            "id": "textcolor" 
+          }
+        ]
+      },
+      {
+        "type": "column_title",
+        "name":"Add Column Title",
+        "limit":1,
+        "settings": [
+          {
+            "type": "text",
+            "label": "Title One",
+            "id": "title_1"
+          },
+          {
+            "type": "text",
+            "label": "Title Two",
+            "id": "title_2"
+          },
+          {
+            "type": "text",
+            "label": "Title Three",
+            "id": "title_3"
+          },
+          {
+            "type": "text",
+            "label": "Title Four",
+            "id": "title_4"
+          },
+          {
+            "type": "text",
+            "label": "Title Five",
+            "id": "title_5"
+          }
+          
+          
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shopc Comparison"
+      }
+    ]
+  }
+{% endschema %}
