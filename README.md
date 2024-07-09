@@ -1,1 +1,1 @@
-# Comparison-table-Shopify-Liquid
+# Comparison table Shopify Liquid
