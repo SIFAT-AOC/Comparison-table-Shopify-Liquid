@@ -1,6 +1,6 @@
 # Comparison table Shopify Liquid
 
-> Open your Shopify Store <br>
+>> Open your Shopify Store <br>
 > Go to the Online Store <br>
 > Select Themes <br>
 > Click on Edit Code from your Active Theme <br>
